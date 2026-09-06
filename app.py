@@ -1,12 +1,17 @@
 import os
 from flask import Flask, render_template
 
-# Absolute path set panroam so Vercel templates-a correct-a edukkum
-app = Flask(__name__, template_folder='templates', static_folder='static')
+# Absolute path resolution for Vercel
+base_dir = os.path.abspath(os.path.dirname(__file__))
+app = Flask(
+    __name__,
+    template_folder=os.path.join(base_dir, 'templates'),
+    static_folder=os.path.join(base_dir, 'static')
+)
 
 @app.route('/')
 def home():
-    return render_template('index.html') # Unga html file name dhaan index.html
+    return render_template('index.html')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
